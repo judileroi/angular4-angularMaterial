@@ -1,0 +1,121 @@
+
+
+
+<button mat-raised-button color="primary" data-backdrop="false" data-toggle="modal" data-target="#myModal" width="100">New</button>
+
+<div class="example-container mat-elevation-z8">
+
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher ici ">
+    </mat-form-field>
+  </div>
+
+
+  <mat-table #table [dataSource]="dataSource"  matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef >Actions</mat-header-cell>
+      <mat-cell *matCellDef="let produit">
+        <button mat-raised-button color="primary"  (click)="detail(produit)" data-backdrop="false" data-toggle="modal" data-target="#myModal">Edit</button>
+        <button mat-raised-button width="10" color="warn" (click)="delete(produit)">Delete</button>    
+
+       </mat-cell>
+    </ng-container>
+
+
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+      <mat-cell *matCellDef="let produit"> {{produit.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let produit"> {{produit.name}} </mat-cell>
+    </ng-container>
+
+    <!-- description Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> description </mat-header-cell>
+      <mat-cell *matCellDef="let produit"> {{produit.description}} </mat-cell>
+    </ng-container>
+
+    <!-- dueDate Column -->
+    <ng-container matColumnDef="dueDate">
+      <mat-header-cell *matHeaderCellDef> dueDate </mat-header-cell>
+      <mat-cell *matCellDef="let produit"> {{produit.dueDate *1000 |date}} </mat-cell>
+    </ng-container>
+
+    <!-- qte Column -->
+    <ng-container matColumnDef="qte">
+      <mat-header-cell *matHeaderCellDef> Qte </mat-header-cell>
+      <mat-cell *matCellDef="let produit"> {{produit.qte}} </mat-cell>
+    </ng-container>
+
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+
+
+<!-- Modal -->
+<form #prodForm="ngForm" (submit)="doSubmit(prodForm.value)" >
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  style="z-index: 1000;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" [hidden]="selectProduit.id">Nouveau Produit</h4>
+        <h4 class="modal-title" id="myModalLabel" [hidden]="!selectProduit.id">Mise à jour {{selectProduit.name}}</h4>
+      </div>
+      <div class="modal-body">
+
+            <input type="hidden" class="name.className" #id class="form-control"     [ngModel] ="selectProduit.id" name="id" placeholder="ID" >
+
+            <mat-form-field>
+              <input matInput   #name    [ngModel] ="selectProduit.name" name="name" placeholder="Name" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput  [(ngModel)] ="selectProduit.ref" name="ref" placeholder="Ref" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input type="number" matInput  [(ngModel)] ="selectProduit.price" name="price" placeholder="Price" required>
+            </mat-form-field>
+            
+            <mat-form-field>
+              <textarea matInput rows="4" cols="6"  [(ngModel)] ="selectProduit.description" name="description" placeholder="Description" required minlength="3" ></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input type="number" matInput  [(ngModel)] ="selectProduit.qte" name="qte" placeholder="Quantite" required min="0">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select [(ngModel)] ="selectProduit.categorie" name="categorie" placeholder="Categorie" required>
+                <mat-option *ngFor="let categorie of categories" [value]="categorie.id">{{categorie.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mat-raised-button  data-dismiss="modal" >Close</button>
+        <button type="submit" mat-raised-button color="primary" [disabled] ="!prodForm.form.valid"  >  Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>

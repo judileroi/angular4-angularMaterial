@@ -1,0 +1,48 @@
+
+<form #categForm="ngForm" (submit)="doSubmit(categForm.value)" >
+
+        <input type="text" class="name.className" #id class="form-control"    [ngModel] ="selectCategorie.id" name="id" placeholder="ID" >
+
+  <div class="form-group"  >
+        <input type="text" class="name.className" #name class="form-control"   [ngModel] ="selectCategorie.name" name="name" placeholder="Name" required>
+  </div>
+
+    <div class="form-group">
+        <textarea rows="4" cols="6" class="form-control" [(ngModel)] ="selectCategorie.description" name="description" placeholder="Description" required minlength="3" ></textarea>
+  </div>
+
+  <div class="form-group">
+        <input type="checkbox" class="form-control" [(ngModel)] ="selectCategorie.published" name="published" required >
+  </div>
+
+ <button type="submit" class="btn btn-success" [disabled] ="!categForm.form.valid"> <i class="glyphicon glyphicon-OK"></i> VALIDER</button>
+ </form>
+
+<table class="table table-bordered table-stripped">
+
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Published</th>
+      <th>Created</th>
+      <th>Actions</th>
+    </tr>
+
+
+  </thead>
+  <tbody>
+    <tr *ngFor="let categorie of categories">
+      <td>{{categorie.id}}</td>
+      <td>{{categorie.name}}</td>
+      <td>{{categorie.description}}</td>
+      <td>{{categorie.published}}</td>
+      <td>{{categorie.dueDate}}</td>
+      <td><button class="btn btn-danger" (click)="delete(categorie)">X</button></td>
+      <td><button class="btn btn-primary" (click)="detail(categorie)">...</button></td>
+
+    </tr>
+  </tbody>
+  
+</table>

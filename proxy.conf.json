@@ -1,0 +1,9 @@
+
+{
+  "/*": {
+    "target": "https://angular-e6ce.restdb.io",
+    "secure": false,
+
+    "changeOrigin": true
+  }
+}

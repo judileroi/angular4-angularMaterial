@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+input .ng-valid {
+background: green
+}
+
+
+input .ng-invalid {
+background: palevioletred
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 600px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+.mat-table{
+    background: #FAFAFA;
+    margin-bottom: 15px;
+}
+
+.mat-table:hover{
+    background: #FFF;
+}
+
+
+
+.mat-header-cell.mat-sort-header-sorted {
+  color: black;
+}
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

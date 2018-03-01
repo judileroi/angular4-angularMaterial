@@ -1,0 +1,68 @@
+
+<form #prodForm="ngForm" (submit)="doSubmit(prodForm.value)" >
+
+        <input type="text" class="name.className" #id class="form-control"    [ngModel] ="selectProduit.id" name="id" placeholder="ID" >
+
+  <div class="form-group"  >
+        <input type="text" class="name.className" #name class="form-control"   [ngModel] ="selectProduit.name" name="name" placeholder="Name" required>
+  </div>
+  <div class="form-group" >
+        <input type="text" class="form-control" [(ngModel)] ="selectProduit.ref" name="ref" placeholder="Ref" required>
+  </div>
+  
+  <div class="form-group">
+        <input type="number" class="form-control" [(ngModel)] ="selectProduit.price" name="price" placeholder="Price" required>
+  </div>
+
+    <div class="form-group">
+        <textarea rows="4" cols="6" class="form-control" [(ngModel)] ="selectProduit.description" name="description" placeholder="Description" required minlength="3" ></textarea>
+  </div>
+
+  <div class="form-group">
+        <input type="number" class="form-control" [(ngModel)] ="selectProduit.qte" name="qte" placeholder="Quantite" required min="0">
+  </div>
+
+
+  <div class="form-group">
+      
+    <select class="form-control" [(ngModel)] ="selectProduit.categorie" name="categorie" placeholder="Categorie" required >
+        
+        <option *ngFor="let categorie of categories" [value]="categorie.id" >{{categorie.name}}</option>
+    </select>
+  </div>
+ <button type="submit" class="btn btn-success" [disabled] ="!prodForm.form.valid"> <i class="glyphicon glyphicon-OK"></i> VALIDER</button>
+ </form>
+
+
+<table class="table table-bordered table-stripped">
+
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Qte</th>
+      <th>Created</th>
+      <th>Categorie</th>
+      <th>Actions</th>
+    </tr>
+
+
+  </thead>
+  <tbody>
+    <tr *ngFor="let produit of produits">
+      <td>{{produit.id}}</td>
+      <td>{{produit.name}}</td>
+      <td>{{produit.price}}</td>
+      <td>{{produit.description}}</td>
+      <td>{{produit.qte}}</td>
+      <td>{{produit.dueDate* 1000 | date}}</td>
+      <td>{{produit.categorie |nameCateg}}</td>
+      <td><button class="btn btn-danger" (click)="delete(produit)">X</button>
+      <td><button class="btn btn-primary" (click)="detail(produit)">...</button></td>
+
+    </tr>
+  </tbody>
+  
+</table>
